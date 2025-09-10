@@ -1,0 +1,52 @@
+{
+  "home_screen": {
+    "welcome": "वापसी पर स्वागत, शौर्य",
+    "good_morning": "सुप्रभात",
+    "good_afternoon": "शुभ दोपहर",
+    "good_evening": "शुभ संध्या",
+    "description": "यह ऐप कई भाषाओं का समर्थन करता है।",
+    "quick_access": "त्वरित पहुंच",
+    "government_schemes": "सरकारी योजनाएं"
+  },
+  "quick_access": {
+    "quickAccess": "त्वरित पहुँच",
+    "consultDoctor": "डॉक्टर से परामर्श",
+    "consultDoctor_sub": "अपॉइंटमेंट बुक करें",
+    "findMedicines": "दवाइयाँ खोजें",
+    "findMedicines_sub": "स्टॉक उपलब्धता",
+    "medicalReports": "चिकित्सा रिपोर्ट",
+    "medicalReports_sub": "परिवार स्वास्थ्य रिकॉर्ड",
+    "sahayak": "सहायक",
+    "sahayak_sub": "एआई स्वास्थ्य सहायक"
+  },
+  "government_schemes": {
+    "ayushman_bharat": "आयुष्मान भारत",
+    "ayushman_description": "प्रति परिवार ₹5 लाख तक मुफ्त स्वास्थ्य कवरेज",
+    "abha": "आभा",
+    "abha_description": "निर्बाध स्वास्थ्य सेवा के लिए डिजिटल स्वास्थ्य आईडी",
+    "learn_more": "और जानें"
+  },
+  "buttons": {
+    "switch_to_hindi": "हिंदी में बदलें",
+    "switch_to_punjabi": "पंजाबी में बदलें",
+    "switch_to_english": "अंग्रेजी में बदलें"
+  },
+  "profile": {
+    "title": "प्रोफ़ाइल",
+    "edit": "प्रोफ़ाइल संपादित करें",
+    "logout": "लॉग आउट"
+  },
+  "appointments": {
+    "title": "नियुक्तियाँ",
+    "no_appointments": "आपकी कोई आगामी नियुक्तियाँ नहीं हैं।",
+    "book": "नियुक्ति बुक करें"
+  },
+  "records": {
+    "title": "स्वास्थ्य रिकॉर्ड",
+    "empty": "कोई रिकॉर्ड नहीं मिला।"
+  },
+  "sahayak": {
+    "title": "सहायक",
+    "description": "आपका निजी स्वास्थ्य सहायक।"
+  }
+}

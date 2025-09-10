@@ -1,0 +1,52 @@
+{
+  "home_screen": {
+    "welcome": "Welcome Back, Shaurya",
+    "good_morning": "Good Morning",
+    "good_afternoon": "Good Afternoon",
+    "good_evening": "Good Evening",
+    "description": "This app supports multiple languages.",
+    "quick_access": "Quick Access",
+    "government_schemes": "Government Schemes"
+  },
+  "quick_access": {
+    "quickAccess": "Quick Access",
+    "consultDoctor": "Consult Doctor",
+    "consultDoctor_sub": "Book appointment",
+    "findMedicines": "Find Medicines",
+    "findMedicines_sub": "Stock availability",
+    "medicalReports": "Medical Reports",
+    "medicalReports_sub": "Family health records",
+    "sahayak": "Sahayak",
+    "sahayak_sub": "AI Health Assistant"
+  },
+  "government_schemes": {
+    "ayushman_bharat": "Ayushman Bharat",
+    "ayushman_description": "Free healthcare coverage up to ₹5 lakh per family",
+    "abha": "ABHA",
+    "abha_description": "Digital health ID for seamless healthcare",
+    "learn_more": "Learn More"
+  },
+  "buttons": {
+    "switch_to_hindi": "Switch to Hindi",
+    "switch_to_punjabi": "Switch to Punjabi",
+    "switch_to_english": "Switch to English"
+  },
+  "profile": {
+    "title": "Profile",
+    "edit": "Edit Profile",
+    "logout": "Logout"
+  },
+  "appointments": {
+    "title": "Appointments",
+    "no_appointments": "You have no upcoming appointments.",
+    "book": "Book an Appointment"
+  },
+  "records": {
+    "title": "Health Records",
+    "empty": "No records found."
+  },
+  "sahayak": {
+    "title": "Sahayak",
+    "description": "Your personal assistant for healthcare."
+  }
+}

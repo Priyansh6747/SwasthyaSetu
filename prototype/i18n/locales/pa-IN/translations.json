@@ -1,0 +1,52 @@
+{
+  "home_screen": {
+    "welcome": "ਵਾਪਸੀ ਤੇ ਜੀ ਆਇਆਂ ਨੂੰ, ਸ਼ੌਰਯ",
+    "good_morning": "ਸਤ ਸ੍ਰੀ ਅਕਾਲ",
+    "good_afternoon": "ਸ਼ੁਭ ਦੁਪਹਿਰ",
+    "good_evening": "ਸ਼ੁਭ ਸ਼ਾਮ",
+    "description": "ਇਹ ਐਪ ਕਈ ਭਾਸ਼ਾਵਾਂ ਦਾ ਸਮਰਥਨ ਕਰਦਾ ਹੈ।",
+    "quick_access": "ਤੇਜ਼ ਪਹੁੰਚ",
+    "government_schemes": "ਸਰਕਾਰੀ ਯੋਜਨਾਵਾਂ"
+  },
+  "quick_access": {
+    "quickAccess": "ਤੇਜ਼ ਪਹੁੰਚ",
+    "consultDoctor": "ਡਾਕਟਰ ਨਾਲ ਸਲਾਹ",
+    "consultDoctor_sub": "ਮੁਲਾਕਾਤ ਬੁੱਕ ਕਰੋ",
+    "findMedicines": "ਦਵਾਈਆਂ ਲੱਭੋ",
+    "findMedicines_sub": "ਸਟਾਕ ਉਪਲਬਧਤਾ",
+    "medicalReports": "ਤਬੀ ਰਿਪੋਰਟਾਂ",
+    "medicalReports_sub": "ਪਰਿਵਾਰਕ ਸਿਹਤ ਰਿਕਾਰਡ",
+    "sahayak": "ਸਹਾਇਕ",
+    "sahayak_sub": "ਏਆਈ ਸਿਹਤ ਸਹਾਇਕ"
+  },
+  "government_schemes": {
+    "ayushman_bharat": "ਆਯੁਸ਼ਮਾਨ ਭਾਰਤ",
+    "ayushman_description": "ਪ੍ਰਤੀ ਪਰਿਵਾਰ ₹5 ਲੱਖ ਤੱਕ ਮੁਫਤ ਸਿਹਤ ਕਵਰੇਜ",
+    "abha": "ਆਭਾ",
+    "abha_description": "ਨਿਰਵਿਘਨ ਸਿਹਤ ਸੇਵਾ ਲਈ ਡਿਜਿਟਲ ਸਿਹਤ ਆਈਡੀ",
+    "learn_more": "ਹੋਰ ਜਾਣੋ"
+  },
+  "buttons": {
+    "switch_to_hindi": "ਹਿੰਦੀ ਵਿੱਚ ਬਦਲੋ",
+    "switch_to_punjabi": "ਪੰਜਾਬੀ ਵਿੱਚ ਬਦਲੋ",
+    "switch_to_english": "ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਬਦਲੋ"
+  },
+  "profile": {
+    "title": "ਪ੍ਰੋਫ਼ਾਈਲ",
+    "edit": "ਪ੍ਰੋਫ਼ਾਈਲ ਸੋਧੋ",
+    "logout": "ਲਾਗ ਆਉਟ"
+  },
+  "appointments": {
+    "title": "ਮੁਲਾਕਾਤਾਂ",
+    "no_appointments": "ਤੁਹਾਡੀਆਂ ਕੋਈ ਆਉਣ ਵਾਲੀਆਂ ਮੁਲਾਕਾਤਾਂ ਨਹੀਂ ਹਨ।",
+    "book": "ਮੁਲਾਕਾਤ ਬੁੱਕ ਕਰੋ"
+  },
+  "records": {
+    "title": "ਸਿਹਤ ਰਿਕਾਰਡ",
+    "empty": "ਕੋਈ ਰਿਕਾਰਡ ਨਹੀਂ ਮਿਲਿਆ।"
+  },
+  "sahayak": {
+    "title": "ਸਹਾਇਕ",
+    "description": "ਤੁਹਾਡਾ ਨਿੱਜੀ ਸਿਹਤ ਸਹਾਇਕ।"
+  }
+}
