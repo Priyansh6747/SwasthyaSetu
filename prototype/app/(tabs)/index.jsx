@@ -1,7 +1,6 @@
 import {View, Text, Button, StyleSheet, ScrollView, TouchableOpacity, Image} from 'react-native'
 import React from 'react'
 import { useTranslation } from "react-i18next";
-import { changeLanguage } from "../../i18n";
 import { Ionicons, MaterialIcons, FontAwesome5, AntDesign } from '@expo/vector-icons';
 
 const Index = () => {
