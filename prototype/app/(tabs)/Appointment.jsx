@@ -2,10 +2,12 @@ import {View, Text, StyleSheet, ScrollView, TouchableOpacity, FlatList} from 're
 import React, { useState } from 'react'
 import { useTranslation } from "react-i18next";
 import { Ionicons, MaterialIcons, FontAwesome5, AntDesign } from '@expo/vector-icons';
+import {router} from "expo-router";
 
 const Appointment = () => {
     const { t } = useTranslation();
     const [selectedStep, setSelectedStep] = useState(1);
+    const [selectedHospital, setSelectedHospital] = useState(null);
     const [selectedDoctor, setSelectedDoctor] = useState(null);
     const [selectedTimeSlot, setSelectedTimeSlot] = useState(null);
 
@@ -31,8 +33,8 @@ const Appointment = () => {
         }
     ];
 
-    // Mock data for available doctors
-    const availableDoctors = [
+    // Mock data for available hospitals
+    const availableHospitals = [
         {
             id: 1,
             name: "Civil Hospital Nabha",
@@ -44,29 +46,82 @@ const Appointment = () => {
         },
         {
             id: 2,
-            name: "Max Hospital",
-            distance: "3.8 km",
-            type: "Private",
+            name: "District Hospital",
+            distance: "5.2 km",
+            type: "Government",
             status: "Open",
             doctors: 25,
-            rating: 4.5
+            rating: 4.0
         },
         {
             id: 3,
-            name: "Apollo Clinic",
-            distance: "1.2 km",
+            name: "Lifeline Medical Center",
+            distance: "3.1 km",
             type: "Private",
-            status: "Closed",
+            status: "Open",
             doctors: 8,
-            rating: 4.1
+            rating: 4.5
         }
     ];
 
+    // Mock data for doctors based on selected hospital
+    const getDoctorsByHospital = (hospitalId) => {
+        const doctorsData = {
+            1: [ // Civil Hospital Nabha
+                {
+                    id: 1,
+                    name: "Dr. Rajesh Kumar",
+                    specialty: "General Medicine",
+                    consultationType: "Online consultation",
+                    status: "Available",
+                    avatar: "RK"
+                },
+                {
+                    id: 2,
+                    name: "Dr. Priya Sharma",
+                    specialty: "Pediatrics",
+                    consultationType: "In-person consultation",
+                    status: "Busy",
+                    nextAvailable: "2:30 PM",
+                    avatar: "PS"
+                },
+                {
+                    id: 3,
+                    name: "Dr. Amit Singh",
+                    specialty: "Cardiology",
+                    consultationType: "Both consultation",
+                    status: "Next: 2:30 PM",
+                    avatar: "AS"
+                }
+            ],
+            2: [ // District Hospital
+                {
+                    id: 4,
+                    name: "Dr. Sunita Gupta",
+                    specialty: "General Medicine",
+                    consultationType: "Online consultation",
+                    status: "Available",
+                    avatar: "SG"
+                }
+            ],
+            3: [ // Lifeline Medical Center
+                {
+                    id: 5,
+                    name: "Dr. Vikram Patel",
+                    specialty: "Orthopedics",
+                    consultationType: "In-person consultation",
+                    status: "Available",
+                    avatar: "VP"
+                }
+            ]
+        };
+        return doctorsData[hospitalId] || [];
+    };
+
     // Mock data for time slots
     const timeSlots = [
-        "09:00 AM", "09:30 AM", "10:00 AM", "10:30 AM",
-        "11:00 AM", "11:30 AM", "02:00 PM", "02:30 PM",
-        "03:00 PM", "03:30 PM", "04:00 PM", "04:30 PM"
+        "9:00 AM", "10:30 AM", "12:00 PM",
+        "2:30 PM", "4:00 PM", "5:30 PM"
     ];
 
     const AppointmentCard = ({ appointment }) => (
@@ -90,7 +145,7 @@ const Appointment = () => {
                     <Text style={styles.consultationText}>{appointment.type}</Text>
                 </View>
                 <TouchableOpacity style={styles.joinButton}>
-                    <Text style={styles.joinButtonText}>{t("appointments.join_appointment")}</Text>
+                    <Text style={styles.joinButtonText}>{t("appointments.join_appointment") || "Join"}</Text>
                 </TouchableOpacity>
             </View>
         </View>
@@ -111,33 +166,48 @@ const Appointment = () => {
         </View>
     );
 
+    const HospitalCard = ({ hospital }) => (
+        <TouchableOpacity
+            style={[styles.hospitalCard, selectedHospital?.id === hospital.id && styles.selectedHospitalCard]}
+            onPress={() => setSelectedHospital(hospital)}
+        >
+            <View style={styles.hospitalCardHeader}>
+                <Text style={styles.hospitalCardName}>{hospital.name}</Text>
+                <View style={[styles.statusBadge, hospital.status === "Open" ? styles.openStatus : styles.closedStatus]}>
+                    <Text style={styles.statusText}>{hospital.status}</Text>
+                </View>
+            </View>
+            <View style={styles.hospitalCardInfo}>
+                <View style={styles.infoItem}>
+                    <Ionicons name="location" size={12} color="#666" />
+                    <Text style={styles.infoText}>{hospital.distance}</Text>
+                </View>
+                <View style={styles.infoItem}>
+                    <MaterialIcons name="local-hospital" size={12} color="#666" />
+                    <Text style={styles.infoText}>{hospital.type}</Text>
+                </View>
+            </View>
+        </TouchableOpacity>
+    );
+
     const DoctorCard = ({ doctor }) => (
         <TouchableOpacity
             style={[styles.doctorCard, selectedDoctor?.id === doctor.id && styles.selectedDoctorCard]}
             onPress={() => setSelectedDoctor(doctor)}
         >
             <View style={styles.doctorCardHeader}>
-                <Text style={styles.doctorCardName}>{doctor.name}</Text>
-                <View style={[styles.statusBadge, doctor.status === "Open" ? styles.openStatus : styles.closedStatus]}>
-                    <Text style={styles.statusText}>{doctor.status}</Text>
+                <View style={styles.doctorAvatar}>
+                    <Text style={styles.doctorAvatarText}>{doctor.avatar}</Text>
                 </View>
-            </View>
-            <View style={styles.doctorCardInfo}>
-                <View style={styles.infoItem}>
-                    <Ionicons name="location" size={12} color="#666" />
-                    <Text style={styles.infoText}>{doctor.distance}</Text>
+                <View style={styles.doctorInfo}>
+                    <Text style={styles.doctorName}>{doctor.name}</Text>
+                    <Text style={styles.doctorSpecialty}>{doctor.specialty}</Text>
+                    <Text style={styles.consultationType}>{doctor.consultationType}</Text>
                 </View>
-                <View style={styles.infoItem}>
-                    <MaterialIcons name="local-hospital" size={12} color="#666" />
-                    <Text style={styles.infoText}>{doctor.type}</Text>
-                </View>
-                <View style={styles.infoItem}>
-                    <MaterialIcons name="people" size={12} color="#666" />
-                    <Text style={styles.infoText}>{doctor.doctors} {t("appointments.doctors")}</Text>
-                </View>
-                <View style={styles.infoItem}>
-                    <Ionicons name="star" size={12} color="#FFD700" />
-                    <Text style={styles.infoText}>{doctor.rating}</Text>
+                <View style={[styles.doctorStatusBadge,
+                    doctor.status === "Available" ? styles.availableStatus :
+                        doctor.status === "Busy" ? styles.busyStatus : styles.nextStatus]}>
+                    <Text style={styles.doctorStatusText}>{doctor.status}</Text>
                 </View>
             </View>
         </TouchableOpacity>
@@ -159,19 +229,19 @@ const Appointment = () => {
             case 1:
                 return (
                     <View style={styles.stepContent}>
-                        <Text style={styles.stepTitle}>{t("appointments.select_doctor")}</Text>
+                        <Text style={styles.stepTitle}>Select Hospital</Text>
                         <FlatList
-                            data={availableDoctors}
+                            data={availableHospitals}
                             keyExtractor={(item) => item.id.toString()}
-                            renderItem={({ item }) => <DoctorCard doctor={item} />}
+                            renderItem={({ item }) => <HospitalCard hospital={item} />}
                             showsVerticalScrollIndicator={false}
                         />
-                        {selectedDoctor && (
+                        {selectedHospital && (
                             <TouchableOpacity
                                 style={styles.continueButton}
                                 onPress={() => setSelectedStep(2)}
                             >
-                                <Text style={styles.continueButtonText}>{t("appointments.continue")}</Text>
+                                <Text style={styles.continueButtonText}>{t("appointments.continue") || "Continue"}</Text>
                             </TouchableOpacity>
                         )}
                     </View>
@@ -179,23 +249,31 @@ const Appointment = () => {
             case 2:
                 return (
                     <View style={styles.stepContent}>
-                        <Text style={styles.stepTitle}>{t("appointments.select_date")}</Text>
-                        <View style={styles.calendarPlaceholder}>
-                            <MaterialIcons name="calendar-today" size={48} color="#ccc" />
-                            <Text style={styles.placeholderText}>{t("appointments.calendar_placeholder")}</Text>
-                        </View>
-                        <TouchableOpacity
-                            style={styles.continueButton}
-                            onPress={() => setSelectedStep(3)}
-                        >
-                            <Text style={styles.continueButtonText}>{t("appointments.continue")}</Text>
-                        </TouchableOpacity>
+                        <Text style={styles.stepTitle}>Select Doctor</Text>
+                        {selectedHospital ? (
+                            <FlatList
+                                data={getDoctorsByHospital(selectedHospital.id)}
+                                keyExtractor={(item) => item.id.toString()}
+                                renderItem={({ item }) => <DoctorCard doctor={item} />}
+                                showsVerticalScrollIndicator={false}
+                            />
+                        ) : (
+                            <Text style={styles.placeholderText}>Please select a hospital first</Text>
+                        )}
+                        {selectedDoctor && (
+                            <TouchableOpacity
+                                style={styles.continueButton}
+                                onPress={() => setSelectedStep(3)}
+                            >
+                                <Text style={styles.continueButtonText}>{t("appointments.continue") || "Continue"}</Text>
+                            </TouchableOpacity>
+                        )}
                     </View>
                 );
             case 3:
                 return (
                     <View style={styles.stepContent}>
-                        <Text style={styles.stepTitle}>{t("appointments.select_time")}</Text>
+                        <Text style={styles.stepTitle}>Select Time</Text>
                         <View style={styles.timeSlotsContainer}>
                             {timeSlots.map((slot, index) => (
                                 <TimeSlotCard key={index} slot={slot} />
@@ -206,7 +284,7 @@ const Appointment = () => {
                                 style={styles.continueButton}
                                 onPress={() => setSelectedStep(4)}
                             >
-                                <Text style={styles.continueButtonText}>{t("appointments.continue")}</Text>
+                                <Text style={styles.continueButtonText}>{t("appointments.continue") || "Continue"}</Text>
                             </TouchableOpacity>
                         )}
                     </View>
@@ -214,24 +292,29 @@ const Appointment = () => {
             case 4:
                 return (
                     <View style={styles.stepContent}>
-                        <Text style={styles.stepTitle}>{t("appointments.confirm_booking")}</Text>
+                        <Text style={styles.stepTitle}>Payment & Confirmation</Text>
                         <View style={styles.confirmationCard}>
-                            <Text style={styles.confirmationTitle}>{t("appointments.booking_summary")}</Text>
+                            <Text style={styles.confirmationTitle}>Appointment Summary</Text>
                             <View style={styles.summaryItem}>
-                                <Text style={styles.summaryLabel}>{t("appointments.hospital")}:</Text>
+                                <Text style={styles.summaryLabel}>Doctor:</Text>
                                 <Text style={styles.summaryValue}>{selectedDoctor?.name}</Text>
                             </View>
                             <View style={styles.summaryItem}>
-                                <Text style={styles.summaryLabel}>{t("appointments.date")}:</Text>
-                                <Text style={styles.summaryValue}>Tomorrow</Text>
+                                <Text style={styles.summaryLabel}>Date & Time:</Text>
+                                <Text style={styles.summaryValue}>Today, {selectedTimeSlot}</Text>
                             </View>
                             <View style={styles.summaryItem}>
-                                <Text style={styles.summaryLabel}>{t("appointments.time")}:</Text>
-                                <Text style={styles.summaryValue}>{selectedTimeSlot}</Text>
+                                <Text style={styles.summaryLabel}>Consultation Fee:</Text>
+                                <Text style={styles.summaryValue}>₹200</Text>
                             </View>
                         </View>
-                        <TouchableOpacity style={styles.confirmButton}>
-                            <Text style={styles.confirmButtonText}>{t("appointments.confirm_booking")}</Text>
+
+                        <TouchableOpacity style={styles.payWithUPIButton} onPress={()=>{router.push('../stack/BookConfirm')}}>
+                            <Text style={styles.payWithUPIButtonText}>Pay with UPI</Text>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity style={styles.payAtHospitalButton}>
+                            <Text style={styles.payAtHospitalButtonText}>Pay at Hospital</Text>
                         </TouchableOpacity>
                     </View>
                 );
@@ -246,7 +329,7 @@ const Appointment = () => {
             <View style={styles.header}>
                 <View style={styles.headerLeft}>
                     <MaterialIcons name="calendar-today" size={24} color="#2196F3" />
-                    <Text style={styles.headerTitle}>{t("appointments.title")}</Text>
+                    <Text style={styles.headerTitle}>{t("appointments.title") || "Appointments"}</Text>
                 </View>
                 <TouchableOpacity style={styles.filterButton}>
                     <MaterialIcons name="filter-list" size={20} color="#666" />
@@ -255,7 +338,7 @@ const Appointment = () => {
 
             {/* Upcoming Appointments */}
             <View style={styles.section}>
-                <Text style={styles.sectionTitle}>{t("appointments.upcoming_appointments")}</Text>
+                <Text style={styles.sectionTitle}>{t("appointments.upcoming_appointments") || "Upcoming Appointments"}</Text>
                 {upcomingAppointments.map((appointment) => (
                     <AppointmentCard key={appointment.id} appointment={appointment} />
                 ))}
@@ -263,7 +346,7 @@ const Appointment = () => {
 
             {/* Book New Appointment */}
             <View style={styles.section}>
-                <Text style={styles.sectionTitle}>{t("appointments.book_new_appointment")}</Text>
+                <Text style={styles.sectionTitle}>{t("appointments.book_new_appointment") || "Book New Appointment"}</Text>
 
                 <StepIndicator />
 
@@ -443,7 +526,7 @@ const styles = StyleSheet.create({
         marginBottom: 16,
         textAlign: 'center',
     },
-    doctorCard: {
+    hospitalCard: {
         backgroundColor: '#FFFFFF',
         borderRadius: 12,
         padding: 16,
@@ -451,17 +534,17 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#E0E0E0',
     },
-    selectedDoctorCard: {
+    selectedHospitalCard: {
         borderColor: '#2196F3',
         borderWidth: 2,
     },
-    doctorCardHeader: {
+    hospitalCardHeader: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
         marginBottom: 8,
     },
-    doctorCardName: {
+    hospitalCardName: {
         fontSize: 16,
         fontWeight: '600',
         color: '#333',
@@ -483,7 +566,7 @@ const styles = StyleSheet.create({
         fontWeight: '500',
         color: '#333',
     },
-    doctorCardInfo: {
+    hospitalCardInfo: {
         flexDirection: 'row',
         flexWrap: 'wrap',
         gap: 16,
@@ -496,6 +579,63 @@ const styles = StyleSheet.create({
     infoText: {
         fontSize: 12,
         color: '#666',
+    },
+    doctorCard: {
+        backgroundColor: '#FFFFFF',
+        borderRadius: 12,
+        padding: 16,
+        marginBottom: 12,
+        borderWidth: 1,
+        borderColor: '#E0E0E0',
+    },
+    selectedDoctorCard: {
+        borderColor: '#2196F3',
+        borderWidth: 2,
+    },
+    doctorCardHeader: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    doctorAvatar: {
+        width: 40,
+        height: 40,
+        borderRadius: 20,
+        backgroundColor: '#2196F3',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginRight: 12,
+    },
+    doctorAvatarText: {
+        color: '#FFFFFF',
+        fontSize: 14,
+        fontWeight: 'bold',
+    },
+    doctorInfo: {
+        flex: 1,
+    },
+    doctorSpecialty: {
+        fontSize: 12,
+        color: '#666',
+        marginBottom: 2,
+    },
+    doctorStatusBadge: {
+        paddingHorizontal: 8,
+        paddingVertical: 4,
+        borderRadius: 12,
+    },
+    availableStatus: {
+        backgroundColor: '#E8F5E8',
+    },
+    busyStatus: {
+        backgroundColor: '#FFEBEE',
+    },
+    nextStatus: {
+        backgroundColor: '#FFF3E0',
+    },
+    doctorStatusText: {
+        fontSize: 12,
+        fontWeight: '500',
+        color: '#333',
     },
     timeSlotsContainer: {
         flexDirection: 'row',
@@ -524,21 +664,8 @@ const styles = StyleSheet.create({
         color: '#FFFFFF',
         fontWeight: '500',
     },
-    calendarPlaceholder: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        paddingVertical: 40,
-        backgroundColor: '#FFFFFF',
-        borderRadius: 12,
-        marginBottom: 20,
-    },
-    placeholderText: {
-        fontSize: 16,
-        color: '#ccc',
-        marginTop: 8,
-    },
     confirmationCard: {
-        backgroundColor: '#FFFFFF',
+        backgroundColor: '#F5F5F5',
         borderRadius: 12,
         padding: 16,
         marginBottom: 20,
@@ -554,7 +681,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         paddingVertical: 8,
         borderBottomWidth: 1,
-        borderBottomColor: '#F0F0F0',
+        borderBottomColor: '#E0E0E0',
     },
     summaryLabel: {
         fontSize: 14,
@@ -577,16 +704,36 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: '600',
     },
-    confirmButton: {
+    payWithUPIButton: {
         backgroundColor: '#4CAF50',
         paddingVertical: 14,
         borderRadius: 8,
         alignItems: 'center',
+        marginBottom: 12,
     },
-    confirmButtonText: {
+    payWithUPIButtonText: {
         color: '#FFFFFF',
         fontSize: 16,
         fontWeight: '600',
+    },
+    payAtHospitalButton: {
+        backgroundColor: '#FFFFFF',
+        borderWidth: 1,
+        borderColor: '#E0E0E0',
+        paddingVertical: 14,
+        borderRadius: 8,
+        alignItems: 'center',
+    },
+    payAtHospitalButtonText: {
+        color: '#333',
+        fontSize: 16,
+        fontWeight: '500',
+    },
+    placeholderText: {
+        fontSize: 16,
+        color: '#ccc',
+        textAlign: 'center',
+        marginTop: 40,
     },
 });
 

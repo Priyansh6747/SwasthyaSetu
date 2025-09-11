@@ -2,6 +2,7 @@ import {View, Text, Button, StyleSheet, ScrollView, TouchableOpacity, Image} fro
 import React from 'react'
 import { useTranslation } from "react-i18next";
 import { Ionicons, MaterialIcons, FontAwesome5, AntDesign } from '@expo/vector-icons';
+import {router} from "expo-router";
 
 const Index = () => {
     const { t } = useTranslation();
@@ -54,7 +55,7 @@ const Index = () => {
                         title={t("quick_access.consultDoctor") || "Consult Doctor"}
                         subtitle={t("quick_access.consultDoctor_sub") || "Book appointment"}
                         bgColor="#E3F2FD"
-                        onPress={() => console.log('Consult Doctor pressed')}
+                        onPress={() => router.navigate('./Appointment')}
                     />
                     <QuickAccessItem
                         IconComponent={MaterialIcons}
@@ -63,7 +64,7 @@ const Index = () => {
                         title={t("quick_access.findMedicines") || "Find Medicines"}
                         subtitle="Stock availability"
                         bgColor="#E8F5E8"
-                        onPress={() => console.log('Find Medicines pressed')}
+                        onPress={() => router.push('../stack/FindMed')}
                     />
                     <QuickAccessItem
                         IconComponent={Ionicons}
@@ -72,7 +73,7 @@ const Index = () => {
                         title={t("quick_access.medicalReports") || "Medical Reports"}
                         subtitle={t("quick_access.medicalReports_sub") || "Family health records"}
                         bgColor="#F3E5F5"
-                        onPress={() => console.log('Medical Reports pressed')}
+                        onPress={() => router.navigate('./Records')}
                     />
                     <QuickAccessItem
                         IconComponent={MaterialIcons}
@@ -81,7 +82,7 @@ const Index = () => {
                         title={t("quick_access.sahayak") || "Sahayak"}
                         subtitle={t("quick_access.sahayak_sub") || "AI Health Assistant"}
                         bgColor="#E8E5FF"
-                        onPress={() => console.log('Sahayak pressed')}
+                        onPress={() => router.navigate('./Sahayak')}
                     />
                 </View>
             </View>
@@ -109,7 +110,7 @@ const Index = () => {
             </View>
 
             {/* Emergency Button */}
-            <TouchableOpacity style={styles.emergencyButton}>
+            <TouchableOpacity style={styles.emergencyButton} onPress={()=>router.push('../stack/Emergency')}>
                 <MaterialIcons name="warning" size={28} color="#FFFFFF" />
             </TouchableOpacity>
         </ScrollView>

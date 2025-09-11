@@ -23,6 +23,7 @@ import {
 } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 import * as DocumentPicker from 'expo-document-picker';
+import {router} from "expo-router";
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 
@@ -304,7 +305,7 @@ const Records = () => {
     );
 
     const renderHealthRecord = (record) => (
-        <TouchableOpacity key={record.id} style={styles.recordCard}>
+        <TouchableOpacity key={record.id} style={styles.recordCard} onPress={()=>router.push('../stack/reportanalysis')}>
             <View style={styles.recordIconContainer}>
                 <Feather name={record.icon} size={24} color={record.iconColor} />
             </View>

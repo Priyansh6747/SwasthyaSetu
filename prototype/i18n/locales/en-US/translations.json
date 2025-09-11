@@ -175,5 +175,158 @@
       "medicine": "To find medicines: 1) Use the 'Find Medicines' feature 2) Search by medicine name 3) Check stock availability 4) Get directions to nearest pharmacy. Always consult a doctor before taking new medications.",
       "default": "I understand you're looking for health assistance. Could you please provide more specific details about your symptoms or health concern? I'm here to help guide you to the right resources and information."
     }
-  }
+  },
+  "report": {
+    "hospitalName": "NABHA HOSPITAL",
+    "subtitle": "Laboratory Report Analysis",
+    "sections": {
+      "patientInfo": "Patient Information",
+      "hemoglobinTrend": "Hemoglobin Trend (6 Months)",
+      "cbc": "Complete Blood Count (CBC)",
+      "bloodCount": "Blood Count Comparison",
+      "lipidProfile": "Lipid Profile",
+      "liverFunction": "Liver Function Tests",
+      "kidneyFunction": "Kidney Function Tests",
+      "clinicalInterpretation": "Clinical Interpretation"
+    },
+    "labels": {
+      "name": "Name",
+      "age": "Age",
+      "gender": "Gender",
+      "patientId": "Patient ID",
+      "reportDate": "Report Date",
+      "years": "years"
+    },
+    "parameters": {
+      "hemoglobin": "Hemoglobin",
+      "rbc": "RBC Count",
+      "wbc": "WBC Count",
+      "platelets": "Platelet Count",
+      "hematocrit": "Hematocrit",
+      "totalCholesterol": "Total Cholesterol",
+      "hdl": "HDL Cholesterol",
+      "ldl": "LDL Cholesterol",
+      "triglycerides": "Triglycerides",
+      "alt": "ALT (SGPT)",
+      "ast": "AST (SGOT)",
+      "bilirubin": "Total Bilirubin",
+      "creatinine": "Serum Creatinine",
+      "bun": "Blood Urea Nitrogen",
+      "uricAcid": "Uric Acid"
+    },
+    "units": {
+      "gdl": "g/dL",
+      "million_ul": "million/µL",
+      "ul": "/µL",
+      "percent": "%",
+      "mgdl": "mg/dL"
+    },
+    "ranges": {
+      "hemoglobin": "13.5-17.5",
+      "rbc": "4.5-5.9",
+      "wbc": "4000-11000",
+      "platelets": "150000-450000",
+      "hematocrit": "41-50",
+      "cholesterol": "<200",
+      "hdl": ">40",
+      "ldl": "<100",
+      "triglycerides": "<150",
+      "alt": "7-56",
+      "ast": "10-40",
+      "bilirubin": "0.3-1.2",
+      "creatinine": "0.6-1.2",
+      "bun": "7-20",
+      "uricAcid": "3.4-7.0"
+    },
+    "status": {
+      "normal": "Normal",
+      "borderline": "Borderline",
+      "high": "High",
+      "low": "Low"
+    },
+    "patientInfo": {
+      "name": "John Doe",
+      "gender": "Male",
+      "patientId": "NH2024001",
+      "reportDate": "2024-09-12",
+      "collectionDate": "2024-09-11"
+    },
+    "overallStatus": "Overall Result: NORMAL",
+    "overallStatusSubtext": "All major parameters within acceptable ranges",
+    "doctorNote": "• All blood parameters are within normal reference ranges\n• LDL cholesterol is borderline - recommend dietary modifications\n• Continue current lifestyle and regular monitoring\n• Next follow-up recommended in 6 months",
+    "footer": {
+      "department": "NABHA HOSPITAL - Department of Laboratory Medicine",
+      "certification": "Certified by CAP & NABL | ISO 15189:2012",
+      "generated": "This report is computer generated and does not require signature"
+    },
+    "months": ["Apr", "May", "Jun", "Jul", "Aug", "Sep"]
+  },
+  "findmed": {
+    "header": {
+      "title": "Find Medicine",
+      "back": "Back"
+    },
+    "search": {
+      "placeholder": "Search medicine name...",
+      "voice": "Voice",
+      "scanPrescription": "Scan Prescription"
+    },
+    "filters": {
+      "nearest": "Nearest",
+      "lowestPrice": "Lowest Price",
+      "inStock": "In Stock"
+    },
+    "results": {
+      "title": "Search Results",
+      "medicinesFound": "medicines found",
+      "noResults": "No medicines found",
+      "tryDifferentKeywords": "Try different keywords"
+    },
+    "medicine": {
+      "inStock": "In Stock",
+      "outOfStock": "Out of Stock",
+      "alternatives": "Alternatives",
+      "viewPharmacy": "View Pharmacy",
+      "reserve": "Reserve",
+      "price": "₹"
+    },
+    "pharmacy": {
+      "distance": "km",
+      "pharmacy": "Pharmacy"
+    },
+    "actions": {
+      "search": "Search",
+      "filter": "Filter",
+      "sort": "Sort",
+      "clear": "Clear"
+    }
+  },
+  "emergency": {
+  "title": "Emergency",
+  "emergencyContacts": "Emergency Contacts",
+  "ambulance": "Ambulance",
+  "ambulanceDesc": "Emergency Medical Services",
+  "police": "Police",
+  "policeDesc": "Emergency Police Services",
+  "fireBrigade": "Fire Brigade",
+  "fireBrigadeDesc": "Fire Emergency Services",
+  "nearestHospital": "Nearest Hospital",
+  "civilHospital": "Civil Hospital Nabha",
+  "hospitalLocation": "Civil Lines, Nabha, Punjab",
+  "distance": "2.1 km",
+  "rating": "4.2"
+},
+  "Congrats" : {
+  "title": "Congratulations!",
+  "subtitle": "Your appointment has been booked successfully",
+  "appointmentDetails": "Appointment Details",
+  "doctorName": "Dr. Rajesh Kumar",
+  "specialty": "General Medicine",
+  "dateLabel": "Date",
+  "todayLabel": "Today",
+  "timeLabel": "Time",
+  "hospitalLabel": "Hospital",
+  "hospitalName": "Civil Hospital Nabha",
+  "addToCalendar": "Add to Calendar 📅"
+}
 }
