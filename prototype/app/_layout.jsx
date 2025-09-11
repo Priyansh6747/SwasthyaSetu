@@ -7,8 +7,6 @@ export default function RootLayout() {
     const [loaded, setLoaded] = useState(false);
     initI18n().then(()=>{
         setLoaded(true)
-        //TODO remove this after adding lang option
-        changeLanguage("en-US")
     });
     if (!loaded) {
         return null;

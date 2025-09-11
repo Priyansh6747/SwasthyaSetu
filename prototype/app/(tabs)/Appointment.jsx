@@ -15,18 +15,18 @@ const Appointment = () => {
             id: 1,
             doctorName: "Dr. Rajesh Kumar",
             hospital: "Civil Hospital Nabha",
-            date: "Today",
+            date: t("appointments.today") || "Today",
             time: "2:30 PM",
-            type: "Video Consultation",
+            type: t("appointments.video_consultation") || "Video Consultation",
             avatar: "👨‍⚕️"
         },
         {
             id: 2,
             doctorName: "Dr. Priya Sharma",
             hospital: "District Hospital",
-            date: "Tomorrow",
+            date: t("appointments.tomorrow") || "Tomorrow",
             time: "10:00 AM",
-            type: "In-person",
+            type: t("appointments.in_person") || "In-person",
             avatar: "👩‍⚕️"
         }
     ];

@@ -23,9 +23,35 @@ const Profile = () => {
         vaccinations: false
     });
 
-    const changeLanguage = (langCode) => {
-        i18n.changeLanguage(langCode);
-        Alert.alert('Language Changed', `Language switched to ${langCode}`);
+    // Fixed language options with correct codes
+    const languageOptions = [
+        { code: 'en-US', name: 'English', displayName: 'English' },
+        { code: 'hi-IN', name: 'हिंदी', displayName: 'Hindi' },
+        { code: 'pa-IN', name: 'ਪੰਜਾਬੀ', displayName: 'Punjabi' }
+    ];
+
+    // Fixed language change function
+    const changeLanguage = async (langCode) => {
+        try {
+            await i18n.changeLanguage(langCode);
+            const selectedLang = languageOptions.find(lang => lang.code === langCode);
+            Alert.alert(
+                t('profile.language_changed', 'Language Changed'),
+                t('profile.language_switched', `Language switched to ${selectedLang?.displayName || langCode}`)
+            );
+        } catch (error) {
+            console.error('Language change failed:', error);
+            Alert.alert(
+                t('profile.error', 'Error'),
+                t('profile.language_change_failed', 'Failed to change language')
+            );
+        }
+    };
+
+    // Helper function to get current language display name
+    const getCurrentLanguageDisplay = () => {
+        const currentLang = languageOptions.find(lang => lang.code === i18n.language);
+        return currentLang ? currentLang.name : 'English';
     };
 
     const toggleNotification = (type) => {
@@ -37,13 +63,12 @@ const Profile = () => {
 
     const handleLogout = () => {
         Alert.alert(
-            'Logout',
-            'Are you sure you want to logout?',
+            t('profile.logout', 'Logout'),
+            t('profile.logout_confirm', 'Are you sure you want to logout?'),
             [
-                { text: 'Cancel', style: 'cancel' },
-                { text: 'Logout', style: 'destructive', onPress: () => {
-                        // Mock logout functionality
-                        Alert.alert('Logged out successfully');
+                { text: t('profile.cancel', 'Cancel'), style: 'cancel' },
+                { text: t('profile.logout', 'Logout'), style: 'destructive', onPress: () => {
+                        Alert.alert(t('profile.logout_success', 'Logged out successfully'));
                     }}
             ]
         );
@@ -51,35 +76,58 @@ const Profile = () => {
 
     const handleSupport = (type) => {
         if (type === 'call') {
-            Alert.alert('Call Support', 'Calling 1800-XXX-XXXX', [
-                { text: 'Cancel' },
-                { text: 'Call', onPress: () => Linking.openURL('tel:1800XXXXXXX') }
-            ]);
+            Alert.alert(
+                t('profile.call_support', 'Call Support'),
+                t('profile.calling', 'Calling 1800-XXX-XXXX'),
+                [
+                    { text: t('profile.cancel', 'Cancel') },
+                    { text: t('profile.call', 'Call'), onPress: () => Linking.openURL('tel:1800XXXXXXX') }
+                ]
+            );
         } else {
-            Alert.alert('WhatsApp', 'Opening WhatsApp chat...', [
-                { text: 'OK', onPress: () => Linking.openURL('whatsapp://send?phone=1800XXXXXXX') }
-            ]);
+            Alert.alert(
+                t('profile.whatsapp', 'WhatsApp'),
+                t('profile.opening_whatsapp', 'Opening WhatsApp chat...'),
+                [
+                    { text: t('profile.ok', 'OK'), onPress: () => Linking.openURL('whatsapp://send?phone=1800XXXXXXX') }
+                ]
+            );
         }
     };
 
     const handleEditProfile = () => {
-        Alert.alert('Edit Profile', 'Edit profile functionality coming soon');
+        Alert.alert(
+            t('profile.edit_profile', 'Edit Profile'),
+            t('profile.edit_coming_soon', 'Edit profile functionality coming soon')
+        );
     };
 
     const handleManageFamily = () => {
-        Alert.alert('Manage Family', 'Family management functionality coming soon');
+        Alert.alert(
+            t('profile.manage_family', 'Manage Family'),
+            t('profile.family_coming_soon', 'Family management functionality coming soon')
+        );
     };
 
     const handlePaymentMethods = () => {
-        Alert.alert('Payment Methods', 'Payment settings functionality coming soon');
+        Alert.alert(
+            t('profile.payment_methods', 'Payment Methods'),
+            t('profile.payment_coming_soon', 'Payment settings functionality coming soon')
+        );
     };
 
     const handlePrivacySecurity = () => {
-        Alert.alert('Privacy & Security', 'Privacy settings functionality coming soon');
+        Alert.alert(
+            t('profile.privacy_security', 'Privacy & Security'),
+            t('profile.privacy_coming_soon', 'Privacy settings functionality coming soon')
+        );
     };
 
     const handleHelpFAQs = () => {
-        Alert.alert('Help & FAQs', 'Help section functionality coming soon');
+        Alert.alert(
+            t('profile.help_faqs', 'Help & FAQs'),
+            t('profile.help_coming_soon', 'Help section functionality coming soon')
+        );
     };
 
     const familyMembers = [
@@ -108,12 +156,6 @@ const Profile = () => {
             status: t('profile.eligible', 'Eligible'),
             statusStyle: styles.eligibleStatus
         }
-    ];
-
-    const languageOptions = [
-        { code: 'en-US', name: t('profile.english', 'English') },
-        { code: 'hi-IN', name: t('profile.hindi', 'हिंदी') },
-        { code: 'pa-IN', name: t('profile.punjabi', 'ਪੰਜਾਬੀ') }
     ];
 
     const notificationItems = [
@@ -252,8 +294,7 @@ const Profile = () => {
                             </View>
                         </View>
                         <Text style={styles.currentLanguage}>
-                            {i18n.language === 'en-US' ? 'English' :
-                                i18n.language === 'hi-IN' ? 'हिंदी' : 'ਪੰਜਾਬੀ'} ▼
+                            {getCurrentLanguageDisplay()} ▼
                         </Text>
                     </View>
 
